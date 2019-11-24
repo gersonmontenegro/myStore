@@ -12,6 +12,9 @@ const AppNavigator = createStackNavigator({
     },
     Detail: {
         screen: Detail,
+        navigationOptions: {
+            headerTitle: 'Detail',
+        },
     },
 }, {
     initialRouteName: 'Main',
