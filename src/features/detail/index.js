@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     Container,
     Content,
@@ -11,19 +11,19 @@ import {
 } from 'native-base';
 import PropTypes from 'prop-types';
 import { setData } from 'actions';
+import getDataSelector from 'selectors';
 
 const propTypes = {
     navigation: PropTypes.shape({
         navigate: PropTypes.func,
     }).isRequired,
-    data: PropTypes.number.isRequired,
-    setData: PropTypes.func.isRequired,
 };
 
-const Detail = (props) => {
-    const { data, setData } = props;
+const Detail = () => {
+    const dispatch = useDispatch();
+    const data = useSelector(getDataSelector);
     const onClickChangeData = () => {
-        setData({ data: data + 1 });
+        dispatch(setData({ data: data + 1 }));
     };
     return (
         <Container>
@@ -49,12 +49,4 @@ const Detail = (props) => {
 
 Detail.propTypes = propTypes;
 
-const mapStateToProps = (state) => ({
-    data: state.dataReducer.data,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-    setData: (newData) => dispatch(setData(newData)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Detail);
+export default Detail;

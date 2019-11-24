@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     Container,
@@ -15,16 +15,17 @@ import {
     CardItem,
     Icon,
 } from 'native-base';
+import getDataSelector from 'selectors';
 
 const propTypes = {
     navigation: PropTypes.shape({
         navigate: PropTypes.func,
     }).isRequired,
-    data: PropTypes.number.isRequired,
 };
 
 const Main = (props) => {
-    const { navigation, data } = props;
+    const { navigation } = props;
+    const data = useSelector(getDataSelector);
     const onClickOpenDetail = () => {
         navigation.navigate('Detail');
     };
@@ -36,9 +37,6 @@ const Main = (props) => {
             </Text>
         );
     };
-    useEffect(() => {
-        console.log('props:', props);
-    }, []);
     return (
         <Container>
             <Header>
@@ -69,10 +67,6 @@ const Main = (props) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    data: state.dataReducer.data,
-});
-
 Main.propTypes = propTypes;
 
-export default connect(mapStateToProps)(Main);
+export default Main;
