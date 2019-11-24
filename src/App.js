@@ -1,11 +1,13 @@
 import React from 'react';
-import Navigator from './navigation';
+import { Provider } from 'react-redux';
+import store from 'store';
+import Navigator from 'navigation';
 
 const App: () => React$Node = () => {
     return (
-        <>
+        <Provider store={store}>
             <Navigator />
-        </>
+        </Provider>
     );
 };
 
