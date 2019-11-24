@@ -12,7 +12,7 @@ const Detail = () => {
     return (
         <SafeAreaView>
             <View>
-                <Text>Main!</Text>
+                <Text>Detail!</Text>
             </View>
         </SafeAreaView>
     );
