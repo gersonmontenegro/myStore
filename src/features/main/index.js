@@ -1,7 +1,14 @@
 import React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
+import PropTypes from 'prop-types';
+import {
 
-const Main = () => {
+const propTypes = {
+    navigation: PropTypes.shape({
+        navigate: PropTypes.func,
+    }).isRequired,
+};
+
+const Main = ({ navigation }) => {
     return (
         <SafeAreaView>
             <View>
@@ -10,5 +17,7 @@ const Main = () => {
         </SafeAreaView>
     );
 };
+
+Main.propTypes = propTypes;
 
 export default Main;
