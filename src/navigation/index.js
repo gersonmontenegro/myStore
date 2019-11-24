@@ -6,6 +6,9 @@ import Detail from 'features/detail';
 const AppNavigator = createStackNavigator({
     Main: {
         screen: Main,
+        navigationOptions: {
+            header: null,
+        },
     },
     Detail: {
         screen: Detail,
