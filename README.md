@@ -17,3 +17,5 @@ In order to get a better idea about how the app will looks like, I drawn some mo
 
 There are 4 views, at least in the first iteration. I decided to divide like that because for the initial requirement is enough.
 > Written with [StackEdit](https://stackedit.io/).
+# myStore
+
