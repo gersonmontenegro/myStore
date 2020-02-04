@@ -1,3 +1,4 @@
+
 This time I'm going to write a mobile app about a store using React Native.
 
 There are several features that I need to achieve:
@@ -143,6 +144,9 @@ After coding for a little while, I got a first preview for the tab button footer
 
 <img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/first_tab_home.gif" width="300px">
 
+Product detail is now in preview version, and it looks like above:
+
+<img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/product_detail.gif" width="300px">
 
 
 > Written with [StackEdit](https://stackedit.io/).
