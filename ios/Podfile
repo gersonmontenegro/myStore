@@ -36,20 +36,5 @@ target 'initStack' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  target 'initStackTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
   use_native_modules!
-end
-
-target 'initStack-tvOS' do
-  # Pods for initStack-tvOS
-
-  target 'initStack-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
