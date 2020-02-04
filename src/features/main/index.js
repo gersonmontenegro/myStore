@@ -14,8 +14,12 @@ import {
     Card,
     CardItem,
     Icon,
+    Item,
+    Input,
 } from 'native-base';
 import getDataSelector from 'selectors';
+import data from 'data/list_categories.json';
+import ListData from '../../components/ListData';
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -25,43 +29,19 @@ const propTypes = {
 
 const Main = (props) => {
     const { navigation } = props;
-    const data = useSelector(getDataSelector);
-    const onClickOpenDetail = () => {
-        navigation.navigate('Detail');
-    };
-    const renderData = () => {
-        return (
-            <Text>
-                Current data:
-                {data}
-            </Text>
-        );
-    };
     return (
         <Container>
-            <Header>
-                <Left />
-                <Body>
-                    <Title>Main</Title>
-                </Body>
-                <Right />
+            <Header searchBar rounded>
+                <Item>
+                    <Icon name="ios-search" />
+                    <Input placeholder="Search" />
+                </Item>
+                <Button transparent>
+                    <Text>Search</Text>
+                </Button>
             </Header>
             <Content>
-                <Card>
-                    <CardItem>
-                        <Button small onPress={onClickOpenDetail}>
-                            <Icon name="arrow-dropright" />
-                            <Text>Go to detail!</Text>
-                        </Button>
-                    </CardItem>
-                </Card>
-                <Card>
-                    <CardItem>
-                        {
-                            renderData()
-                        }
-                    </CardItem>
-                </Card>
+                <ListData mainlevel sublevels={data.categories} navigation={navigation} />
             </Content>
         </Container>
     );
