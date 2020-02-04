@@ -27,9 +27,13 @@ Now, I'll describe every view and all possible tasks that it requires:
 It's the first interface the user is able to interact with. Through this view, the user can see the main categories, go to the cart, and search a product. Let's see the features to make:
  
  a. Search input. The user can search a product from here using a key word/phrase.
+ 
  b. Search button. Used to start the search.
+ 
  c. Main categories list.
+ 
  d. Main button on the tab bar menu. The user can go back to Home using it.
+ 
  e. Cart button on the tab bar menu. The user can go to the shopping cart from here.
  
  2. **Recursive list view**
