@@ -133,6 +133,10 @@ Also, there were need to run this command:
     yarn add react-native-gesture-handler react-native-reanimated react-nat
     ive-screens react-native-safe-area-context @react-native-community/masked-view
 
+After coding for a little while, I got a first preview for the tab button footer:
+
+<img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/first_tab_home.gif" width="300px">
+
 
 
 > Written with [StackEdit](https://stackedit.io/).
