@@ -101,4 +101,11 @@ g. Remove this product from the cart.
 
 h. Checkout button. Pressing this button, the user can finish the shopping process.
 
+
+Let's start!
+
+In spite it seems like Home is the first view to make, I think it could be the Recursive list view, because at the end of the day, Home is just using this component with some initial data, so let's do that.
+
+
+
 > Written with [StackEdit](https://stackedit.io/).
