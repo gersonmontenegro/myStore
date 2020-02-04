@@ -106,6 +106,9 @@ Let's start!
 
 In spite it seems like Home is the first view to make, I think it could be the Recursive list view, because at the end of the day, Home is just using this component with some initial data, so let's do that.
 
+After a while, I got a first demo. No matter how depth the structure can be, it'll works:
+
+<img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/recursive_list.gif" width="300px">
 
 
 > Written with [StackEdit](https://stackedit.io/).
