@@ -120,11 +120,17 @@ Now it's time to build the home interface. In order to achieve that, I do need t
 The way to solve this, is to create an stack with the tab button navigator, and another one with the other two views. Graphically is more like
 
 +Navigator
+
 +---Tab Button Navigator
+
 +------Home
+
 +------Cart
+
 +---Product Detail
+
 +---Recursive List
+
 
 With that in mind, I'm going to create the navigation structure using [react-navigation](https://reactnavigation.org/docs/en/hello-react-navigation.html), [react-navigation-tabs](https://reactnavigation.org/docs/en/tab-based-navigation.html), and [react-navigation-stack](https://github.com/react-navigation/stack) libraries.
 
