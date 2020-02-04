@@ -110,5 +110,30 @@ After a while, I got a first demo. No matter how depth the structure can be, it'
 
 <img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/recursive_list.gif" width="300px">
 
+> By the way, if you are asking about why there are so much people with
+> beard, I let you know I'm using [placebeard.it](http://placebeard.it)
+> to fake de images :D ...is a good images provider without restrictions
+> to load them from an app.
+
+Now it's time to build the home interface. In order to achieve that, I do need to change a little bit the stack navigator, because home requires a tab button navigator, but also, requires some others available views, like product detail and the recursive list interface, but we don't need it on the footer tab button.
+
+The way to solve this, is to create an stack with the tab button navigator, and another one with the other two views. Graphically is more like
+
++Navigator
++---Tab Button Navigator
++------Home
++------Cart
++---Product Detail
++---Recursive List
+
+With that in mind, I'm going to create the navigation structure using [react-navigation](https://reactnavigation.org/docs/en/hello-react-navigation.html), [react-navigation-tabs](https://reactnavigation.org/docs/en/tab-based-navigation.html), and [react-navigation-stack](https://github.com/react-navigation/stack) libraries.
+
+Also, there were need to run this command:
+
+    yarn add react-native-gesture-handler react-native-reanimated react-nat
+    ive-screens react-native-safe-area-context @react-native-community/masked-view
+
+
 
 > Written with [StackEdit](https://stackedit.io/).
+
