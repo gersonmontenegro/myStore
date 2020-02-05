@@ -1,11 +1,17 @@
 import { createSelector } from 'reselect';
 
 const getProducts = (state) => state.products;
+const getCartProducts = (state) => state.cart;
 const getCurrentSublevel = (state) => state.currentSublevel.currentSublevel;
 const getCurrentProductId = (state) => state.currentProductId;
 
 const getProductsSelector = createSelector(
     getProducts,
+    (data) => data,
+);
+
+const getCartProductsSelector = createSelector(
+    getCartProducts,
     (data) => data,
 );
 
@@ -35,4 +41,5 @@ export {
     getProductsBySublevel,
     getCurrentProductLikes,
     getCurrentFavorite,
+    getCartProductsSelector,
 };
