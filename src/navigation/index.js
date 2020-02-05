@@ -4,15 +4,16 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Main from 'features/main';
 import ListData from 'components/ListData';
 import Detail from 'features/detail';
+import Cart from 'features/cart';
 
 const AppNavigator = createBottomTabNavigator({
     Main: {
         screen: Main,
     },
-    Detail: {
-        screen: Detail,
+    Cart: {
+        screen: Cart,
         navigationOptions: {
-            headerTitle: 'Detail',
+            headerTitle: 'Car7',
         },
     },
 }, {
