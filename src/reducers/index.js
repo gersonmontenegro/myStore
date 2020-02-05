@@ -26,6 +26,11 @@ const productsReducer = (state = initiallProducts.products.products, action) => 
             const newData = state.map((item) => {
                 if (item.id === id) {
                     item.favorite = !item.favorite;
+                    if (item.favorite) {
+                        item.likes += 1;
+                    } else {
+                        item.likes -= 1;
+                    }
                 }
                 return item;
             });
