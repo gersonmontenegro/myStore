@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import products from 'data/list_products.json';
 import filter from 'lodash/filter';
+import find from 'lodash/find';
 import {
     GET_PRODUCTS,
     SET_CURRENT_SUBLEVEL,
@@ -8,6 +9,7 @@ import {
     MODIFY_CART,
     SET_CURRENT_PRODUCT_ID,
     SET_FAVORITE,
+    GET_PRODUCT_DETAIL_BY_ID,
 } from '../actions/types';
 
 const initiallProducts = {
@@ -36,6 +38,10 @@ const productsReducer = (state = initiallProducts.products.products, action) => 
                 return item;
             });
             return [...newData];
+        }
+        case GET_PRODUCT_DETAIL_BY_ID: {
+            const productId = action.payload;
+            return find(state, (item) => item.id === productId);
         }
         default: {
             return state;
