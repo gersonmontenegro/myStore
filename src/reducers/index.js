@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import products from 'data/list_products.json';
+import filter from 'lodash/filter';
 import {
     GET_PRODUCTS,
     SET_CURRENT_SUBLEVEL,
@@ -59,11 +60,19 @@ const currentSublevel = (state = initiallProducts.currentSublevel, action) => {
 const cartReducer = (state = initialCart, action) => {
     switch (action.type) {
         case MODIFY_CART: {
-            const { item, quantity } = action.payload;
-            return {
-                ...state,
-                [item.id]: quantity,
-            };
+            const { item: { id }, quantity } = action.payload;
+            if (quantity > 0) {
+                return {
+                    ...state,
+                    [id]: quantity,
+                };
+            }
+            const result = filter(state, (value, key) => {
+                if (key !== id) {
+                    return { key: value };
+                }
+            });
+            return { ...result };
         }
         default: {
             return state;
