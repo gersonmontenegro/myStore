@@ -1,5 +1,7 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Image } from 'react-native';
 import {
     Container,
     Content,
@@ -8,41 +10,191 @@ import {
     Card,
     CardItem,
     Icon,
+    Thumbnail,
+    Left,
+    Right,
+    Body,
+    Item,
+    View,
+    Footer,
+    FooterTab,
+    Header,
+    CheckBox,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import { setData } from 'actions';
-import getDataSelector from 'selectors';
+import { modifyCart, setCurrentProductId, setFavorite } from 'actions';
+import { getCurrentProductLikes, getCurrentFavorite } from 'selectors';
+import Format from 'helpers/format';
+
+const cartIconImage = require('assets/icons/cart_128.png');
+const plusIconImage = require('assets/icons/plus.png');
+const minusIconImage = require('assets/icons/minus.png');
+const checkIconImage = require('assets/icons/check.png');
+const uncheckIconImage = require('assets/icons/uncheck.png');
 
 const propTypes = {
     navigation: PropTypes.shape({
         navigate: PropTypes.func,
+        getParam: PropTypes.func,
     }).isRequired,
 };
 
-const Detail = () => {
+const Detail = (props) => {
+    const { navigation } = props;
+    const [quantity, setQuantity] = useState(0);
+    const [subtotal, setSubtotal] = useState(0);
     const dispatch = useDispatch();
-    const data = useSelector(getDataSelector);
-    const onClickChangeData = () => {
-        dispatch(setData({ data: data + 1 }));
+    const currentLikes = useSelector(getCurrentProductLikes);
+    const currentFavorite = useSelector(getCurrentFavorite);
+    const item = navigation.getParam('item');
+    const defineSubtotal = (currentValue) => {
+        const subtotalValue = parseInt(item.price, 10) * currentValue;
+        setSubtotal(subtotalValue);
+    };
+    const renderAddButtons = ({ available }) => {
+        if (available) {
+            return (
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        width: 100,
+                        alignItems: 'stretch',
+                    }}
+                >
+                    <View style={{ flex: 1 }}>
+                        <Button
+                            transparent
+                            onPress={() => {
+                                const currentValue = quantity - 1;
+                                setQuantity(currentValue);
+                                dispatch(modifyCart({ item, operation: '-', quantity: currentValue }));
+                                defineSubtotal(currentValue);
+                            }}
+                        >
+                            <Image source={minusIconImage} style={{ width: 30, height: 30 }} />
+                        </Button>
+                    </View>
+                    <View style={{
+                        justifyContent: 'center',
+                        flex: 1,
+                        alignItems: 'center',
+                    }}
+                    >
+                        <Text>{` ${quantity} `}</Text>
+                    </View>
+                    <View style={{
+                        flex: 1,
+                    }}
+                    >
+                        <Button
+                            transparent
+                            onPress={() => {
+                                const currentValue = quantity + 1;
+                                setQuantity(currentValue);
+                                dispatch(modifyCart({ item, operation: '+', quantity: currentValue }));
+                                defineSubtotal(currentValue);
+                            }}
+                        >
+                            <Image source={plusIconImage} style={{ width: 30, height: 30 }} />
+                        </Button>
+                    </View>
+                </View>
+            );
+        }
+        return (
+            <View style={{ flexDirection: 'row' }}>
+                <Button light>
+                    <Text>Not available</Text>
+                </Button>
+            </View>
+        );
+    };
+    const renderHeart = () => {
+        if (currentFavorite) {
+            return 'heart';
+        }
+        return 'heart-empty';
     };
     return (
         <Container>
+            <Header>
+                <Left>
+                    <Button
+                        transparent
+                        onPress={() => navigation.pop()}
+                    >
+                        <Icon name="arrow-back" />
+                    </Button>
+                </Left>
+            </Header>
             <Content>
                 <Card>
                     <CardItem>
-                        <Button small onPress={onClickChangeData}>
-                            <Icon name="add-circle" />
-                            <Text>Change data!</Text>
-                        </Button>
+                        <Left>
+                            <Thumbnail source={cartIconImage} />
+                            <Body>
+                                <Text>{item.name}</Text>
+                                <Text note>{Format.currencyFormat(item.price)}</Text>
+                            </Body>
+                        </Left>
+                        <Right>
+                        </Right>
+                    </CardItem>
+                    <CardItem cardBody>
+                        <Image
+                            source={{ uri: item.thumbnail }}
+                            style={{ height: 200, width: null, flex: 1 }}
+                        />
                     </CardItem>
                     <CardItem>
-                        <Text>
-                            Current :
-                            {data}
-                        </Text>
+                        <Left>
+                            <Button
+                                transparent
+                                onPress={() => {
+                                    dispatch(setFavorite(item.id));
+                                }}
+                            >
+                                <Icon active name={renderHeart()} />
+                                <Text>{`${currentLikes} likes`}</Text>
+                            </Button>
+                        </Left>
+                        <Body />
+                        <Right />
+                    </CardItem>
+                    <CardItem cardBody>
+                        <Left>
+                            <Text>Quantity</Text>
+                        </Left>
+                        <Right>
+                            {
+                                renderAddButtons(item)
+                            }
+                        </Right>
+                    </CardItem>
+                    <CardItem cardBody>
+                        <Left>
+                            <Text>Subtotal</Text>
+                        </Left>
+                        <Right>
+                            <Text style={{ fontSize: 20 }}>{Format.currencyFormat(subtotal)}</Text>
+                        </Right>
+                    </CardItem>
+                    <CardItem header bordered>
+                        <Body>
+                            <Button small style={{ alignSelf: 'center' }}>
+                                <Text>Add to cart</Text>
+                            </Button>
+                        </Body>
                     </CardItem>
                 </Card>
             </Content>
+            <Footer>
+                <FooterTab>
+                    <Button full primary>
+                        <Text style={{ color: 'white' }}>Checkout</Text>
+                    </Button>
+                </FooterTab>
+            </Footer>
         </Container>
     );
 };
