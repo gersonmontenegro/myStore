@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import map from 'lodash/map';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     Container,
     Content,
@@ -10,7 +12,12 @@ import {
     FooterTab,
     Left,
     Icon,
+    List,
+    ListItem,
+    Body,
 } from 'native-base';
+import { getCartProductsSelector } from 'selectors';
+import { getProductDetailById } from 'actions';
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -23,20 +30,32 @@ const propTypes = {
 
 const Cart = (props) => {
     const { navigation } = props;
-    console.log(navigation);
-    console.log(navigation.isFirstRouteInParent());
+    const dispatch = useDispatch();
+    const cartProducts = useSelector(getCartProductsSelector);
+    const renderCartProducts = (items) => {
+        return map(items, async (quantity, id) => {
+            console.log('>>');
+            const itemDetail = await dispatch(getProductDetailById(id));
+            console.log('>', itemDetail);
+            return <Text>{id}</Text>;
+        });
+    };
     return (
         <Container style={{ top: 20 }}>
             <Content>
-                <Text>Cart!</Text>
+                <List>
+                    {
+                        renderCartProducts(cartProducts)
+                    }
+                    <ListItem>
+                        <Body>
+                            <Button full primary rounded small>
+                                <Text style={{ color: 'white' }}>Checkout</Text>
+                            </Button>
+                        </Body>
+                    </ListItem>
+                </List>
             </Content>
-            <Footer>
-                <FooterTab>
-                    <Button full primary>
-                        <Text style={{ color: 'white' }}>Checkout</Text>
-                    </Button>
-                </FooterTab>
-            </Footer>
         </Container>
     );
 };
