@@ -186,7 +186,11 @@ const Detail = (props) => {
             </Content>
             <Footer>
                 <FooterTab>
-                    <Button full primary>
+                    <Button
+                        full
+                        primary
+                        onPress={() => navigation.navigate('Cart')}
+                    >
                         <Text style={{ color: 'white' }}>Checkout</Text>
                     </Button>
                 </FooterTab>
