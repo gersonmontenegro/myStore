@@ -14,12 +14,11 @@ import {
     Left,
     Right,
     Body,
-    Item,
     View,
     Footer,
     FooterTab,
     Header,
-    CheckBox,
+    Title,
 } from 'native-base';
 import PropTypes from 'prop-types';
 import { modifyCart, setCurrentProductId, setFavorite } from 'actions';
@@ -115,6 +114,9 @@ const Detail = (props) => {
         }
         return 'heart-empty';
     };
+    const inCart = () => {
+
+    };
     return (
         <Container>
             <Header>
@@ -131,14 +133,12 @@ const Detail = (props) => {
                 <Card>
                     <CardItem>
                         <Left>
-                            <Thumbnail source={cartIconImage} />
+                            <Thumbnail source={inCart()} />
                             <Body>
                                 <Text>{item.name}</Text>
                                 <Text note>{Format.currencyFormat(item.price)}</Text>
                             </Body>
                         </Left>
-                        <Right>
-                        </Right>
                     </CardItem>
                     <CardItem cardBody>
                         <Image
@@ -161,6 +161,9 @@ const Detail = (props) => {
                         <Body />
                         <Right />
                     </CardItem>
+                    <CardItem>
+                        <Title>Add to cart</Title>
+                    </CardItem>
                     <CardItem cardBody>
                         <Left>
                             <Text>Quantity</Text>
@@ -178,13 +181,6 @@ const Detail = (props) => {
                         <Right>
                             <Text style={{ fontSize: 20 }}>{Format.currencyFormat(subtotal)}</Text>
                         </Right>
-                    </CardItem>
-                    <CardItem header bordered>
-                        <Body>
-                            <Button small style={{ alignSelf: 'center' }}>
-                                <Text>Add to cart</Text>
-                            </Button>
-                        </Body>
                     </CardItem>
                 </Card>
             </Content>
