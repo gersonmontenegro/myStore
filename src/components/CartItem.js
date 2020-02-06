@@ -14,7 +14,7 @@ import {
     Right,
     Icon,
 } from 'native-base';
-import { modifyCart, checkProduct } from 'actions';
+import { modifyCart, checkProduct, removeProductFromCart } from 'actions';
 import Utils from 'helpers/utils';
 import Format from 'helpers/format';
 
@@ -38,8 +38,8 @@ const CartItem = ({ item }) => {
     const onCheck = ({ id }) => () => {
         dispatch(checkProduct({ id }));
     };
-    const onRemove = ({ id }) => () => {
-        console.log('remove', id);
+    const onRemove = (id) => () => {
+        dispatch(removeProductFromCart(id));
     };
     return (
         <List key={item.id} style={{ right: 5 }}>
