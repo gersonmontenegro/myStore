@@ -11,6 +11,8 @@ import {
     Thumbnail,
     CheckBox,
     View,
+    Right,
+    Icon,
 } from 'native-base';
 import { modifyCart, checkProduct } from 'actions';
 import Utils from 'helpers/utils';
@@ -36,9 +38,12 @@ const CartItem = ({ item }) => {
     const onCheck = ({ id }) => () => {
         dispatch(checkProduct({ id }));
     };
+    const onRemove = ({ id }) => () => {
+        console.log('remove', id);
+    };
     return (
         <List key={item.id} style={{ right: 5 }}>
-            <ListItem avatar style={{ borderBottomWidth: 1 }}>
+            <ListItem avatar style={{ borderBottomWidth: 0 }}>
                 <Left>
                     <Thumbnail source={{ uri: item.thumbnail }} />
                 </Left>
@@ -80,6 +85,14 @@ const CartItem = ({ item }) => {
                     checked={item.check}
                     onPress={onCheck(item)}
                 />
+            </ListItem>
+            <ListItem>
+                <Left />
+                <Right>
+                    <Button small danger onPress={onRemove(item.id)}>
+                        <Icon name="trash" />
+                    </Button>
+                </Right>
             </ListItem>
         </List>
     );
