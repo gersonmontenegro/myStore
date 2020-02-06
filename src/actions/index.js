@@ -7,6 +7,8 @@ import {
     MODIFY_CART,
     SET_CURRENT_PRODUCT_ID,
     SET_FAVORITE,
+    GET_PRODUCT_DETAIL_BY_ID,
+    CHECK_PRODUCT,
 } from './types';
 
 const getData = () => ({
@@ -46,6 +48,16 @@ const setFavorite = (payload) => ({
     payload,
 });
 
+const getProductDetailById = (payload) => ({
+    type: GET_PRODUCT_DETAIL_BY_ID,
+    payload,
+});
+
+const checkProduct = (payload) => ({
+    type: CHECK_PRODUCT,
+    payload,
+});
+
 export {
     getData,
     setData,
@@ -55,4 +67,6 @@ export {
     modifyCart,
     setCurrentProductId,
     setFavorite,
+    getProductDetailById,
+    checkProduct,
 };

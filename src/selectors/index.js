@@ -1,12 +1,32 @@
 import { createSelector } from 'reselect';
+import has from 'lodash/has';
+import compact from 'lodash/compact';
 
 const getProducts = (state) => state.products;
+const getCartProducts = (state) => state.cart;
 const getCurrentSublevel = (state) => state.currentSublevel.currentSublevel;
 const getCurrentProductId = (state) => state.currentProductId;
 
 const getProductsSelector = createSelector(
     getProducts,
     (data) => data,
+);
+
+const getCartProductsSelector = createSelector(
+    getCartProducts,
+    getProducts,
+    (cartProducts, products) => {
+        const cartProductsWithQuantity = products.map((item) => {
+            if (has(cartProducts, item.id)) {
+                return {
+                    ...item,
+                    cartQuantity: cartProducts[item.id].quantity,
+                    check: cartProducts[item.id].check,
+                };
+            }
+        });
+        return compact(cartProductsWithQuantity);
+    },
 );
 
 const getProductsBySublevel = createSelector(
@@ -35,4 +55,5 @@ export {
     getProductsBySublevel,
     getCurrentProductLikes,
     getCurrentFavorite,
+    getCartProductsSelector,
 };

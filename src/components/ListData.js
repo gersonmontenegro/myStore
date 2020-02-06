@@ -65,7 +65,7 @@ const ListData = (props) => {
                 <List>
                     {
                         currentCategoryProducts.map((item) => (
-                            <ListItem thumbnail key={item.id}>
+                            <ListItem thumbnail key={item.id.toString()}>
                                 <Left>
                                     <Thumbnail source={{ uri: 'https://placebeard.it/100x100' }} />
                                 </Left>
@@ -113,7 +113,7 @@ const ListData = (props) => {
             );
         }
         return (
-            <View>
+            <View key={item.id}>
                 <Text style={{ backgroundColor: 'aqua' }}>
                     {item.name}
                 </Text>

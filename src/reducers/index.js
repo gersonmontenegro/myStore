@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
 import products from 'data/list_products.json';
 import filter from 'lodash/filter';
+import find from 'lodash/find';
+import get from 'lodash/get';
 import {
     GET_PRODUCTS,
     SET_CURRENT_SUBLEVEL,
@@ -8,6 +10,8 @@ import {
     MODIFY_CART,
     SET_CURRENT_PRODUCT_ID,
     SET_FAVORITE,
+    GET_PRODUCT_DETAIL_BY_ID,
+    CHECK_PRODUCT,
 } from '../actions/types';
 
 const initiallProducts = {
@@ -37,6 +41,10 @@ const productsReducer = (state = initiallProducts.products.products, action) => 
             });
             return [...newData];
         }
+        case GET_PRODUCT_DETAIL_BY_ID: {
+            const productId = action.payload;
+            return find(state, (item) => item.id === productId);
+        }
         default: {
             return state;
         }
@@ -64,15 +72,24 @@ const cartReducer = (state = initialCart, action) => {
             if (quantity > 0) {
                 return {
                     ...state,
-                    [id]: quantity,
+                    [id]: {
+                        quantity,
+                        check: get(state[id], 'check', true),
+                    },
                 };
             }
             const result = filter(state, (value, key) => {
                 if (key !== id) {
-                    return { key: value };
+                    return { key: { quantity: value, check: true } };
                 }
             });
             return { ...result };
+        }
+        case CHECK_PRODUCT: {
+            const { id } = action.payload;
+            const checkedItems = { ...state };
+            checkedItems[id].check = !checkedItems[id].check;
+            return checkedItems;
         }
         default: {
             return state;
