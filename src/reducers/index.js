@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import products from 'data/list_products.json';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
+import get from 'lodash/get';
 import {
     GET_PRODUCTS,
     SET_CURRENT_SUBLEVEL,
@@ -10,6 +11,7 @@ import {
     SET_CURRENT_PRODUCT_ID,
     SET_FAVORITE,
     GET_PRODUCT_DETAIL_BY_ID,
+    CHECK_PRODUCT,
 } from '../actions/types';
 
 const initiallProducts = {
@@ -82,6 +84,12 @@ const cartReducer = (state = initialCart, action) => {
                 }
             });
             return { ...result };
+        }
+        case CHECK_PRODUCT: {
+            const { id } = action.payload;
+            const checkedItems = { ...state };
+            checkedItems[id].check = !checkedItems[id].check;
+            return checkedItems;
         }
         default: {
             return state;
