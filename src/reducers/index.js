@@ -12,6 +12,7 @@ import {
     SET_FAVORITE,
     GET_PRODUCT_DETAIL_BY_ID,
     CHECK_PRODUCT,
+    REMOVE_PRODUCT_FROM_CART,
 } from '../actions/types';
 
 const initiallProducts = {
@@ -90,6 +91,10 @@ const cartReducer = (state = initialCart, action) => {
             const checkedItems = { ...state };
             checkedItems[id].check = !checkedItems[id].check;
             return checkedItems;
+        }
+        case REMOVE_PRODUCT_FROM_CART: {
+            const { id } = action.payload;
+            return id;
         }
         default: {
             return state;
