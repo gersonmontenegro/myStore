@@ -93,8 +93,17 @@ const cartReducer = (state = initialCart, action) => {
             return checkedItems;
         }
         case REMOVE_PRODUCT_FROM_CART: {
-            const { id } = action.payload;
-            return id;
+            const id = action.payload;
+            const dirtyData = {};
+            Object.keys(state).map((item) => {
+                if (item !== id) {
+                    dirtyData[item] = {
+                        quantity: state[item].quantity,
+                        check: state[item].check,
+                    };
+                }
+            });
+            return dirtyData;
         }
         default: {
             return state;
