@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import map from 'lodash/map';
 import { useDispatch, useSelector } from 'react-redux';
 import {
     Container,
@@ -13,10 +12,15 @@ import {
     Body,
     Thumbnail,
     CheckBox,
+    View,
 } from 'native-base';
 import { getCartProductsSelector } from 'selectors';
-import { checkProduct } from 'actions';
+import { checkProduct, modifyCart } from 'actions';
+import Utils from 'helpers/utils';
 import Format from 'helpers/format';
+
+const plusIconImage = require('assets/icons/plus.png');
+const minusIconImage = require('assets/icons/minus.png');
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -38,13 +42,43 @@ const Cart = (props) => {
     const renderCartItem = (item) => {
         return (
             <List key={item.id} style={{ right: 5 }}>
-                <ListItem avatar>
+                <ListItem avatar style={{ borderBottomWidth: 1 }}>
                     <Left>
                         <Thumbnail source={{ uri: item.thumbnail }} />
                     </Left>
-                    <Body>
+                    <Body style={{ borderBottomColor: 'red', borderBottomWidth: 0 }}>
                         <Text>{item.name}</Text>
                         <Text note>{Format.currencyFormat(item.price)}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Button
+                                transparent
+                                onPress={() => {
+                                    const currentValue = Utils.decreaseValue(item.cartQuantity);
+                                    dispatch(modifyCart({ item, operation: '-', quantity: currentValue }));
+                                }}
+                            >
+                                <Thumbnail source={minusIconImage} style={{ width: 25, height: 25 }} />
+                            </Button>
+                            <View style={{ justifyContent: 'center' }}>
+                                <Text>{` ${item.cartQuantity} `}</Text>
+                            </View>
+                            <Button
+                                transparent
+                                onPress={() => {
+                                    const currentValue = Utils.increaseValue(item.cartQuantity, item.quantity);
+                                    dispatch(modifyCart({ item, operation: '+', quantity: currentValue }));
+                                }}
+                            >
+                                <Thumbnail source={plusIconImage} style={{ width: 25, height: 25 }} />
+                            </Button>
+                        </View>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text>
+                                {
+                                    `Subtotal: ${Format.currencyFormat(item.cartQuantity * item.price)}`
+                                }
+                            </Text>
+                        </View>
                     </Body>
                     <CheckBox
                         checked={item.check}
