@@ -24,6 +24,7 @@ import PropTypes from 'prop-types';
 import { modifyCart, setCurrentProductId, setFavorite } from 'actions';
 import { getCurrentProductLikes, getCurrentFavorite } from 'selectors';
 import Format from 'helpers/format';
+import Utils from 'helpers/utils';
 
 const cartIconImage = require('assets/icons/cart_128.png');
 const plusIconImage = require('assets/icons/plus.png');
@@ -64,7 +65,7 @@ const Detail = (props) => {
                         <Button
                             transparent
                             onPress={() => {
-                                const currentValue = quantity - 1;
+                                const currentValue = Utils.decreaseValue(quantity);
                                 setQuantity(currentValue);
                                 dispatch(modifyCart({ item, operation: '-', quantity: currentValue }));
                                 defineSubtotal(currentValue);
@@ -88,7 +89,9 @@ const Detail = (props) => {
                         <Button
                             transparent
                             onPress={() => {
-                                const currentValue = quantity + 1;
+                                // const currentValue = quantity + 1;
+                                // console.log(item);
+                                const currentValue = Utils.increaseValue(quantity, item.quantity);
                                 setQuantity(currentValue);
                                 dispatch(modifyCart({ item, operation: '+', quantity: currentValue }));
                                 defineSubtotal(currentValue);
