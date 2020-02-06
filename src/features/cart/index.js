@@ -26,7 +26,7 @@ const Cart = (props) => {
     const { navigation } = props;
     const cartProducts = useSelector(getCartProductsSelector);
     const renderCartProducts = (products) => {
-        return products.map((item) => <CartItem key={item.key} item={item} />);
+        return products.map((item) => <CartItem key={item.id} item={item} />);
     };
     return (
         <Container style={{ top: 20 }}>
