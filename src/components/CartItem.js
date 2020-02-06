@@ -20,7 +20,15 @@ const plusIconImage = require('assets/icons/plus.png');
 const minusIconImage = require('assets/icons/minus.png');
 
 const propTypes = {
-    item: PropTypes.objectOf(PropTypes.object).isRequired,
+    item: PropTypes.shape({
+        quantity: PropTypes.number,
+        id: PropTypes.string,
+        name: PropTypes.string,
+        thumbnail: PropTypes.string,
+        price: PropTypes.number,
+        cartQuantity: PropTypes.number,
+        check: PropTypes.bool,
+    }).isRequired,
 };
 
 const CartItem = ({ item }) => {
