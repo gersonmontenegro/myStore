@@ -70,12 +70,15 @@ const cartReducer = (state = initialCart, action) => {
             if (quantity > 0) {
                 return {
                     ...state,
-                    [id]: quantity,
+                    [id]: {
+                        quantity,
+                        check: get(state[id], 'check', true),
+                    },
                 };
             }
             const result = filter(state, (value, key) => {
                 if (key !== id) {
-                    return { key: value };
+                    return { key: { quantity: value, check: true } };
                 }
             });
             return { ...result };
