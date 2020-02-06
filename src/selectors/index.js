@@ -1,4 +1,6 @@
 import { createSelector } from 'reselect';
+import has from 'lodash/has';
+import compact from 'lodash/compact';
 
 const getProducts = (state) => state.products;
 const getCartProducts = (state) => state.cart;
@@ -12,7 +14,19 @@ const getProductsSelector = createSelector(
 
 const getCartProductsSelector = createSelector(
     getCartProducts,
-    (data) => data,
+    getProducts,
+    (cartProducts, products) => {
+        const cartProductsWithQuantity = products.map((item) => {
+            if (has(cartProducts, item.id)) {
+                return {
+                    ...item,
+                    cartQuantity: cartProducts[item.id].quantity,
+                    check: cartProducts[item.id].check,
+                };
+            }
+        });
+        return compact(cartProductsWithQuantity);
+    },
 );
 
 const getProductsBySublevel = createSelector(
