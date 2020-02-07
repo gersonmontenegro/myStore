@@ -130,7 +130,12 @@ const ListData = (props) => {
         );
     };
     const renderList = (data) => {
-        return data.map((item) => renderButton(item));
+        const list = (
+            <List>
+                {data.map((item) => renderButton(item))}
+            </List>
+        );
+        return list;
     };
     const renderHeader = () => {
         if (!mainLevel) {
