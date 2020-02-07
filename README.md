@@ -148,6 +148,10 @@ Product detail is now in preview version, and it looks like above:
 
 <img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/product_detail.gif" width="300px">
 
+At this moment, our store is almost finish, at least in a first preview. We can add products to the cart, and then, we can see the shopping cart and make some editions as I show it below
+
+<img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/cart_preview.gif" width="300px">
+
 
 > Written with [StackEdit](https://stackedit.io/).
 
