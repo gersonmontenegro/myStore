@@ -1,11 +1,28 @@
 import { createSelector } from 'reselect';
 import has from 'lodash/has';
 import compact from 'lodash/compact';
+import map from 'lodash/map';
+import findIndex from 'lodash/findIndex';
 
 const getProducts = (state) => state.products;
 const getCartProducts = (state) => state.cart;
 const getCurrentSublevel = (state) => state.currentSublevel.currentSublevel;
 const getCurrentProductId = (state) => state.currentProductId;
+
+const getTotalFromCart = createSelector(
+    getCartProducts,
+    getProducts,
+    (cartProducts, products) => {
+        let total = 0;
+        map(cartProducts, (item, key) => {
+            const i = findIndex(products, (product) => product.id === key);
+            const { price } = products[i];
+            const { quantity } = item;
+            total += (quantity * price);
+        });
+        return total;
+    },
+);
 
 const getProductsSelector = createSelector(
     getProducts,
@@ -56,4 +73,5 @@ export {
     getCurrentProductLikes,
     getCurrentFavorite,
     getCartProductsSelector,
+    getTotalFromCart,
 };

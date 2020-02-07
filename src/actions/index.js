@@ -10,6 +10,7 @@ import {
     GET_PRODUCT_DETAIL_BY_ID,
     CHECK_PRODUCT,
     REMOVE_PRODUCT_FROM_CART,
+    CLEAR,
 } from './types';
 
 const getData = () => ({
@@ -64,6 +65,10 @@ const removeProductFromCart = (payload) => ({
     payload,
 });
 
+const clearCart = () => ({
+    type: CLEAR,
+});
+
 export {
     getData,
     setData,
@@ -76,4 +81,5 @@ export {
     getProductDetailById,
     checkProduct,
     removeProductFromCart,
+    clearCart,
 };
