@@ -12,7 +12,18 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		98094FF5F752DEB329C700B3 /* libPods-initStack.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 061F510E033B80D66E8B337C /* libPods-initStack.a */; };
+		C35667D323EDD84E00BE2DE8 /* libRNCSlider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C35667D223EDD7F100BE2DE8 /* libRNCSlider.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C35667D123EDD7F100BE2DE8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C35667CD23EDD7F100BE2DE8 /* RNCSlider.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 28C79A09220DC4CC0061DE82;
+			remoteInfo = RNCSlider;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
@@ -50,6 +61,7 @@
 		C338E332238AA7110027A2F8 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		C338E333238AA7110027A2F8 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		C338E334238AA7110027A2F8 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		C35667CD23EDD7F100BE2DE8 /* RNCSlider.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNCSlider.xcodeproj; path = "../node_modules/@react-native-community/slider/ios/RNCSlider.xcodeproj"; sourceTree = "<group>"; };
 		CDF8FF56CEF14A71515285E8 /* Pods-initStack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-initStack.release.xcconfig"; path = "Target Support Files/Pods-initStack/Pods-initStack.release.xcconfig"; sourceTree = "<group>"; };
 		DFE75307AA55299938C7D93F /* libPods-initStackTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-initStackTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E390D7187D827FAAD2567D5B /* Pods-initStack-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-initStack-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-initStack-tvOSTests/Pods-initStack-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -62,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C35667D323EDD84E00BE2DE8 /* libRNCSlider.a in Frameworks */,
 				98094FF5F752DEB329C700B3 /* libPods-initStack.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +129,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C35667CD23EDD7F100BE2DE8 /* RNCSlider.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -166,6 +180,14 @@
 			);
 			name = Fonts;
 			path = "../node_modules/react-native-vector-icons/Fonts";
+			sourceTree = "<group>";
+		};
+		C35667CE23EDD7F100BE2DE8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C35667D223EDD7F100BE2DE8 /* libRNCSlider.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D9A1D06EE9BE1FBD0B4519A9 /* Pods */ = {
@@ -228,12 +250,28 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C35667CE23EDD7F100BE2DE8 /* Products */;
+					ProjectRef = C35667CD23EDD7F100BE2DE8 /* RNCSlider.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* initStack */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		C35667D223EDD7F100BE2DE8 /* libRNCSlider.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNCSlider.a;
+			remoteRef = C35667D123EDD7F100BE2DE8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
