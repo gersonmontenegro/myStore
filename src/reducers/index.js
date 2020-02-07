@@ -13,6 +13,7 @@ import {
     GET_PRODUCT_DETAIL_BY_ID,
     CHECK_PRODUCT,
     REMOVE_PRODUCT_FROM_CART,
+    CLEAR,
 } from '../actions/types';
 
 const initiallProducts = {
@@ -104,6 +105,9 @@ const cartReducer = (state = initialCart, action) => {
                 }
             });
             return dirtyData;
+        }
+        case CLEAR: {
+            return initialCart;
         }
         default: {
             return state;
