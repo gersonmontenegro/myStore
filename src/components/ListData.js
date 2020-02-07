@@ -95,12 +95,12 @@ const ListData = (props) => {
         const hasSublevels = has(item, 'sublevels');
         if (hasSublevels) {
             return (
+                <ListItem key={item.id}>
+                    <Body>
                 <Button
                     transparent
-                    key={item.id}
                     onPress={
                         () => {
-                            console.log('>', navigation);
                             dispatch(setCurrentSublevel(item.id));
                             navigation.push('ListData', { sublevels: item.sublevels });
                         }
@@ -110,14 +110,20 @@ const ListData = (props) => {
                         {item.name}
                     </Text>
                 </Button>
+                    </Body>
+                    <Right>
+                        <Icon name="arrow-forward" />
+                    </Right>
+                </ListItem>
             );
         }
         return (
             <View key={item.id}>
-                <Text style={{ backgroundColor: 'aqua' }}>
+                <View style={{ backgroundColor: 'lightgray', height: 30, justifyContent: 'center' }}>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold', left: 5 }}>
                     {item.name}
                 </Text>
-                {
+                </View>
                     renderProducts(item)
                 }
             </View>
