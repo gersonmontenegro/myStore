@@ -1,6 +1,7 @@
+import React, { useState } from 'react';
 import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
     Container,
     Content,
@@ -9,14 +10,18 @@ import {
     List,
     ListItem,
     Body,
+    Header,
+    Right,
+    View,
 } from 'native-base';
+import { clearCart } from 'actions';
 import { getCartProductsSelector, getTotalFromCart } from 'selectors';
 import CartItem from 'components/CartItem';
+import Format from 'helpers/format';
 
 const propTypes = {
     navigation: PropTypes.shape({
         navigate: PropTypes.func,
-        isFirstRouteInParent: PropTypes.func,
         pop: PropTypes.func,
         push: PropTypes.func,
     }).isRequired,
@@ -31,6 +36,17 @@ const Cart = (props) => {
     const totalAmount = useSelector(getTotalFromCart);
     const renderCartProducts = (products) => {
         return products.map((item) => <CartItem key={item.id} item={item} />);
+    };
+    const onPressCheckout = () => {
+        setVisible(!visible);
+        if (totalAmount > 0) {
+            setModalMsg('Thanks for your shopping!!');
+            dispatch(clearCart());
+            navigation.navigate('Main');
+        } else {
+            setModalMsg('There is nothing to checkout.');
+            dispatch(clearCart());
+        }
     };
     const renderModal = () => (
         <Modal isVisible={visible}>
