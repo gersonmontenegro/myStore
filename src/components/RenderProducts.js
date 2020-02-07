@@ -14,10 +14,14 @@ import {
     Text,
     Right,
     Button,
+    Form,
+    Picker,
 } from 'native-base';
 import { setCurrentProductId } from 'actions';
 import { getProductsSelector } from 'selectors';
 import Format from 'helpers/format';
+import Slider from '@react-native-community/slider';
+import RenderProductItem from './RenderProductItem';
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -33,6 +37,7 @@ const RenderProducts = ({ id, navigation }) => {
     const dispatch = useDispatch();
     const products = useSelector(getProductsSelector);
     const [searchText, setSearchText] = useState('');
+    const [sortType, setSortType] = useState(0);
     const currentCategoryProducts = products.filter((item) => {
         if (setSearchText) {
             return item.sublevel_id === id && item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
@@ -40,6 +45,9 @@ const RenderProducts = ({ id, navigation }) => {
         return item.sublevel_id === id;
     });
     const onChangeText = (txt) => setSearchText(txt);
+    const onChangeSortBy = (value) => {
+        setSortType(value);
+    };
     return (
         <View>
             <View>
@@ -53,30 +61,34 @@ const RenderProducts = ({ id, navigation }) => {
                     />
                 </Item>
             </View>
+            <View style={{ flexDirection: 'row' }}>
+                <View style={{ justifyContent: 'center' }}>
+                    <Text>Sort by: </Text>
+                </View>
+                <Form>
+                    <Picker
+                        mode="dropdown"
+                        iosHeader="Sort by"
+                        selectedValue={sortType}
+                        onValueChange={onChangeSortBy}
+                        iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: 'blue', fontSize: 25 }} />}
+                        style={{ width: 100 }}
+                    >
+                        <Picker.Item label="Quantity" value={0} />
+                        <Picker.Item label="Aviability" value={1} />
+                    </Picker>
+                </Form>
+                <Slider
+                    style={{width: 200, height: 40}}
+                    minimumValue={0}
+                    maximumValue={1}
+                    minimumTrackTintColor="#FFFFFF"
+                    maximumTrackTintColor="#000000"
+                />
+            </View>
             <List>
                 {
-                    currentCategoryProducts.map((item) => (
-                        <ListItem thumbnail key={item.id.toString()}>
-                            <Left>
-                                <Thumbnail source={{ uri: 'https://placebeard.it/100x100' }} />
-                            </Left>
-                            <Body>
-                                <Text>{item.name}</Text>
-                                <Text note>{Format.currencyFormat(item.price)}</Text>
-                            </Body>
-                            <Right>
-                                <Button
-                                    transparent
-                                    onPress={() => {
-                                        dispatch(setCurrentProductId(item.id));
-                                        navigation.push('Detail', { item });
-                                    }}
-                                >
-                                    <Text>View</Text>
-                                </Button>
-                            </Right>
-                        </ListItem>
-                    ))
+                    currentCategoryProducts.map((item) => <RenderProductItem key={item.id} item={item} navigation={navigation} />)
                 }
             </List>
         </View>
