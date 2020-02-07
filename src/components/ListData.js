@@ -11,13 +11,9 @@ import {
     List,
     ListItem,
     Left,
-    Thumbnail,
     Body,
     Right,
-    Input,
-    Item,
     Icon,
-    Container,
     Header,
 } from 'native-base';
 import { setCurrentSublevel, setCurrentProductId } from 'actions';
@@ -113,9 +109,7 @@ const ListData = (props) => {
     return (
         <ScrollView>
             {renderHeader()}
-            <Container>
-                {renderList(subData)}
-            </Container>
+            {renderList(subData)}
         </ScrollView>
     );
 };
