@@ -55,7 +55,11 @@ const CartItem = ({ item }) => {
                             transparent
                             onPress={() => {
                                 const currentValue = Utils.decreaseValue(item.cartQuantity);
-                                dispatch(modifyCart({ item, operation: '-', quantity: currentValue }));
+                                if (currentValue === 0) {
+                                    dispatch(removeProductFromCart(item.id));
+                                } else {
+                                    dispatch(modifyCart({ item, operation: '-', quantity: currentValue }));
+                                }
                             }}
                         >
                             <Thumbnail source={minusIconImage} style={{ width: 25, height: 25 }} />
