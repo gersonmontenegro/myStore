@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -32,15 +32,23 @@ const propTypes = {
 const RenderProducts = ({ id, navigation }) => {
     const dispatch = useDispatch();
     const products = useSelector(getProductsSelector);
-    const currentCategoryProducts = products.filter((item) => item.sublevel_id === id);
+    const [searchText, setSearchText] = useState('');
+    const currentCategoryProducts = products.filter((item) => {
+        if (setSearchText) {
+            return item.sublevel_id === id && item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
+        }
+        return item.sublevel_id === id;
+    });
+    const onChangeText = (txt) => setSearchText(txt);
     return (
         <View>
             <View>
                 <Item>
                     <Icon name="ios-search" />
                     <Input
-                        onChangeText={(txt) => console.log(txt)}
+                        onChangeText={onChangeText}
                         maxLengt={30}
+                        value={searchText}
                         placeholder="Search"
                     />
                 </Item>
