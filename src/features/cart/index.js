@@ -10,7 +10,7 @@ import {
     ListItem,
     Body,
 } from 'native-base';
-import { getCartProductsSelector } from 'selectors';
+import { getCartProductsSelector, getTotalFromCart } from 'selectors';
 import CartItem from 'components/CartItem';
 
 const propTypes = {
@@ -28,6 +28,7 @@ const Cart = (props) => {
     const [modalMsg, setModalMsg] = useState('');
     const dispatch = useDispatch();
     const cartProducts = useSelector(getCartProductsSelector);
+    const totalAmount = useSelector(getTotalFromCart);
     const renderCartProducts = (products) => {
         return products.map((item) => <CartItem key={item.id} item={item} />);
     };
@@ -50,6 +51,16 @@ const Cart = (props) => {
     );
     return (
         <Container style={{ top: 20 }}>
+            <Header>
+                <Body />
+                <Right>
+                    <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+                        {
+                            `Total: ${Format.currencyFormat(totalAmount)}`
+                        }
+                    </Text>
+                </Right>
+            </Header>
             <Content>
                 <List>
                     {
@@ -57,8 +68,8 @@ const Cart = (props) => {
                     }
                     <ListItem>
                         <Body>
-                            <Button full primary rounded small>
-                                <Text style={{ color: 'white' }}>Checkout</Text>
+                            <Button full primary rounded small onPress={onPressCheckout}>
+                                <Text style={{ color: 'white' }}>{`Checkout ${Format.currencyFormat(totalAmount)}`}</Text>
                             </Button>
                         </Body>
                     </ListItem>
