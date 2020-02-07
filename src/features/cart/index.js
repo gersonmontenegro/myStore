@@ -1,4 +1,4 @@
-import React from 'react';
+import Modal from 'react-native-modal';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
@@ -24,10 +24,30 @@ const propTypes = {
 
 const Cart = (props) => {
     const { navigation } = props;
+    const [visible, setVisible] = useState(false);
+    const [modalMsg, setModalMsg] = useState('');
+    const dispatch = useDispatch();
     const cartProducts = useSelector(getCartProductsSelector);
     const renderCartProducts = (products) => {
         return products.map((item) => <CartItem key={item.id} item={item} />);
     };
+    const renderModal = () => (
+        <Modal isVisible={visible}>
+            <View style={{
+                justifyContent: 'center',
+                backgroundColor: 'white',
+                height: 200,
+                borderRadius: 10,
+                padding: 10,
+            }}
+            >
+                <Text>{modalMsg}</Text>
+                <Button title="Hide modal" onPress={onPressCheckout}>
+                    <Text>OK!</Text>
+                </Button>
+            </View>
+        </Modal>
+    );
     return (
         <Container style={{ top: 20 }}>
             <Content>
@@ -43,6 +63,9 @@ const Cart = (props) => {
                         </Body>
                     </ListItem>
                 </List>
+                {
+                    renderModal()
+                }
             </Content>
         </Container>
     );
