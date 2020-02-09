@@ -33,6 +33,9 @@ const RenderProducts = ({ id, navigation }) => {
     const maxPrice = useSelector(getMaxPrice);
     const [searchText, setSearchText] = useState('');
     const [sortType, setSortType] = useState(0);
+    const [showAll, setShowAll] = useState(true);
+    const [showAvailable, setShowAvailable] = useState(false);
+    const [sliderValue, setSliderValue] = useState(0);
     const getFilterProducts = products.filter((item) => {
         if (setSearchText) {
             return item.sublevel_id === id && item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
@@ -57,6 +60,19 @@ const RenderProducts = ({ id, navigation }) => {
     const onChangeText = (txt) => setSearchText(txt);
     const onChangeSortBy = (value) => {
         setSortType(value);
+    };
+    const onPressRadio = (radio) => () => {
+        let currentData = [...currentCategoryProducts];
+        if (radio) {
+            setShowAll(false);
+            setShowAvailable(true);
+            currentData = currentData.filter((item) => item.available);
+        } else {
+            setShowAll(true);
+            setShowAvailable(false);
+            currentData = [...getFilterProducts];
+        }
+        setCurrentCategoryProducts(currentData);
     };
     return (
         <View>
@@ -95,6 +111,37 @@ const RenderProducts = ({ id, navigation }) => {
                     minimumTrackTintColor="#FFFFFF"
                     maximumTrackTintColor="#000000"
                 />
+            <View style={{ flexDirection: 'row', flex: 1 }}>
+                <View style={{ flex: 1 }}>
+                    <Button
+                        transparent
+                        onPress={onPressRadio(0)}
+                    >
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text>Show all</Text>
+                            </View>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Radio onPress={onPressRadio(0)} selected={showAll} />
+                            </View>
+                        </View>
+                    </Button>
+                </View>
+                <View style={{ flex: 1 }}>
+                    <Button
+                        transparent
+                        onPress={onPressRadio(1)}
+                    >
+                        <View style={{ flexDirection: 'row', flex: 1 }}>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Text>Only available</Text>
+                            </View>
+                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                                <Radio onPress={onPressRadio(1)} selected={showAvailable} />
+                            </View>
+                        </View>
+                    </Button>
+                </View>
             </View>
             <List>
                 {
