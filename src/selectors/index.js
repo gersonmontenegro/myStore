@@ -67,6 +67,19 @@ const getCurrentFavorite = createSelector(
     (currentId, products) => products.filter((item) => item.id === currentId)[0].favorite,
 );
 
+const getMaxPrice = createSelector(
+    getProducts,
+    (products) => {
+        products.sort((prevItem, nextItem) => {
+            if (prevItem.price > nextItem.price) {
+                return 1;
+            }
+            return -1;
+        });
+        return products[products.length - 1].price;
+    },
+);
+
 export {
     getProductsSelector,
     getProductsBySublevel,
@@ -74,4 +87,5 @@ export {
     getCurrentFavorite,
     getCartProductsSelector,
     getTotalFromCart,
+    getMaxPrice,
 };
