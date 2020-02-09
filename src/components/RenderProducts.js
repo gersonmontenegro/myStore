@@ -36,6 +36,7 @@ const RenderProducts = ({ id, navigation }) => {
     const [showAll, setShowAll] = useState(true);
     const [showAvailable, setShowAvailable] = useState(false);
     const [sliderValue, setSliderValue] = useState(0);
+    const onSlidingComplete = (value) => setSliderValue(value);
     const getFilterProducts = products.filter((item) => {
         if (setSearchText) {
             return item.sublevel_id === id && item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
@@ -43,6 +44,32 @@ const RenderProducts = ({ id, navigation }) => {
         return item.sublevel_id === id;
     });
     const [currentCategoryProducts, setCurrentCategoryProducts] = useState([]);
+    const onChangeText = (txt) => setSearchText(txt);
+    const onChangeSortBy = (value) => {
+        setSortType(value);
+    };
+    const onPressRadio = (radio) => () => {
+        if (radio) {
+            setShowAll(false);
+            setShowAvailable(true);
+        } else {
+            setShowAll(true);
+            setShowAvailable(false);
+        }
+    };
+    useEffect(() => {
+        let currentData = [...currentCategoryProducts];
+        if (showAll === true && showAvailable === false) {
+            currentData = [...getFilterProducts];
+        } else if (showAll === false && showAvailable === true) {
+            currentData = currentData.filter((item) => item.available);
+        }
+        setCurrentCategoryProducts(currentData);
+    }, [showAll, showAvailable]);
+    useEffect(() => {
+        const filteredtData = [...getFilterProducts].filter((item) => item.price <= sliderValue);
+        setCurrentCategoryProducts(filteredtData);
+    }, [sliderValue]);
     useEffect(() => {
         setSliderValue(maxPrice);
     }, [maxPrice]);
@@ -60,28 +87,6 @@ const RenderProducts = ({ id, navigation }) => {
         });
         setCurrentCategoryProducts(currentData);
     }, [sortType, setCurrentCategoryProducts]);
-    const onChangeText = (txt) => setSearchText(txt);
-    const onChangeSortBy = (value) => {
-        setSortType(value);
-    };
-    const onPressRadio = (radio) => () => {
-        let currentData = [...currentCategoryProducts];
-        if (radio) {
-            setShowAll(false);
-            setShowAvailable(true);
-            currentData = currentData.filter((item) => item.available);
-        } else {
-            setShowAll(true);
-            setShowAvailable(false);
-            currentData = [...getFilterProducts];
-        }
-        setCurrentCategoryProducts(currentData);
-    };
-    useEffect(() => {
-        const filteredtData = [...getFilterProducts].filter((item) => item.price <= sliderValue);
-        setCurrentCategoryProducts(filteredtData);
-    }, [sliderValue]);
-    const onSlidingComplete = (value) => setSliderValue(value);
     return (
         <View>
             <View>
