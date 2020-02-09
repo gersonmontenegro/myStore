@@ -13,9 +13,9 @@ import {
     Left,
     Body,
     Right,
-    Icon,
     Header,
 } from 'native-base';
+import Icon from 'components/CustomIcon';
 import { setCurrentSublevel, setCurrentProductId } from 'actions';
 import { getProductsSelector, getProductsBySublevel } from 'selectors';
 import { ScrollView } from 'react-native';

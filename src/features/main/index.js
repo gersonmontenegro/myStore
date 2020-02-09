@@ -6,12 +6,12 @@ import {
     Content,
     Button,
     Text,
-    Icon,
     Item,
     Input,
 } from 'native-base';
 import data from 'data/list_categories.json';
-import ListData from '../../components/ListData';
+import Icon from 'components/CustomIcon';
+import ListData from 'components/ListData';
 
 const propTypes = {
     navigation: PropTypes.shape({
