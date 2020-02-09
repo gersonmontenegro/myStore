@@ -1,26 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import get from 'lodash/get';
 import has from 'lodash/has';
 import {
     Button,
-    Text,
-    View,
     List,
-    ListItem,
     Left,
     Body,
     Right,
     Header,
 } from 'native-base';
 import Icon from 'components/CustomIcon';
-import { setCurrentSublevel, setCurrentProductId } from 'actions';
-import { getProductsSelector, getProductsBySublevel } from 'selectors';
 import { ScrollView } from 'react-native';
-import Format from 'helpers/format';
-import RenderProducts from 'components/RenderProducts';
+import RenderCategoryItem from 'components/RenderCategoryItem';
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -33,9 +26,6 @@ const propTypes = {
 
 const ListData = (props) => {
     const { navigation } = props;
-    const [currentCategoryProducts, setCurrentCategoryProducts] = useState([]);
-    const dispatch = useDispatch();
-    const products = useSelector(getProductsSelector);
     let subData;
     const mainLevel = get(props, 'mainlevel', '');
     subData = navigation.getParam('sublevels');
@@ -44,50 +34,16 @@ const ListData = (props) => {
             subData = get(props, 'sublevels', []);
         }
     }
-    const renderButton = (item) => {
-        const hasSublevels = has(item, 'sublevels');
-        if (hasSublevels) {
-            return (
-                <ListItem key={item.id}>
-                    <Body>
-                        <Button
-                            transparent
-                            onPress={
-                                () => {
-                                    dispatch(setCurrentSublevel(item.id));
-                                    navigation.push('ListData', { sublevels: item.sublevels });
-                                }
-                            }
-                        >
-                            <Text>
-                                {item.name}
-                            </Text>
-                        </Button>
-                    </Body>
-                    <Right>
-                        <Icon name="arrow-forward" />
-                    </Right>
-                </ListItem>
-            );
-        }
-        return (
-            <View key={item.id}>
-                <View style={{ backgroundColor: 'lightgray', height: 30, justifyContent: 'center' }}>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold', left: 5 }}>
-                        {item.name}
-                    </Text>
-                </View>
-                <RenderProducts id={item.id} navigation={navigation} />
-            </View>
-        );
-    };
     const renderList = (data) => {
         const list = (
             <List>
-                {data.map((item) => renderButton(item))}
+                {data.map((item) => <RenderCategoryItem key={item.id} item={item} navigation={navigation} />)}
             </List>
         );
         return list;
+    };
+    const onPressBackButton = () => {
+        navigation.pop();
     };
     const renderHeader = () => {
         if (!mainLevel) {
@@ -96,11 +52,13 @@ const ListData = (props) => {
                     <Left>
                         <Button
                             transparent
-                            onPress={() => navigation.pop()}
+                            onPress={onPressBackButton}
                         >
                             <Icon name="arrow-back" />
                         </Button>
                     </Left>
+                    <Body />
+                    <Right />
                 </Header>
             );
         }
