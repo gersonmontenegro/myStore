@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import {
     View,
     Item,
@@ -8,11 +8,11 @@ import {
     Input,
     List,
     Text,
-    Form,
     Picker,
+    Radio,
+    Button,
 } from 'native-base';
-import { setCurrentProductId } from 'actions';
-import { getProductsSelector } from 'selectors';
+import { getProductsSelector, getMaxPrice } from 'selectors';
 import Format from 'helpers/format';
 import Slider from '@react-native-community/slider';
 import Objects from 'constants/objects';
@@ -29,8 +29,8 @@ const propTypes = {
 };
 
 const RenderProducts = ({ id, navigation }) => {
-    const dispatch = useDispatch();
     const products = useSelector(getProductsSelector);
+    const maxPrice = useSelector(getMaxPrice);
     const [searchText, setSearchText] = useState('');
     const [sortType, setSortType] = useState(0);
     const getFilterProducts = products.filter((item) => {
