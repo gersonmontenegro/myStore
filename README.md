@@ -152,6 +152,18 @@ At this moment, our store is almost finish, at least in a first preview. We can 
 
 <img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/cart_preview.gif" width="300px">
 
+After a while, I've implemented 3 kind of search.
+
+1. Search by name
+<img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/search_by_name.gif" width="300px">
+
+
+2. Search by price range
+<img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/search_by_price.gif" width="300px">
+
+
+3. Search by price aviability
+<img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/search_by_aviability.gif" width="300px">
 
 > Written with [StackEdit](https://stackedit.io/).
 
