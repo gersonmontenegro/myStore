@@ -118,6 +118,8 @@ const RenderProducts = ({ id, navigation }) => {
                 <Text style={{ flex: 1 }}>{Format.currencyFormat(maxPrice)}</Text>
             </View>
             <View style={{ flex: 1 }}>
+                <Text style={{ flex: 1, textAlign: 'center' }}>{Format.currencyFormat(sliderValue)}</Text>
+            </View>
             <View style={{ flexDirection: 'row', flex: 1 }}>
                 <View style={{ flex: 1 }}>
                     <Button
