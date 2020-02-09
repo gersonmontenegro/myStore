@@ -99,18 +99,20 @@ const RenderProducts = ({ id, navigation }) => {
                 <View style={{ justifyContent: 'center' }}>
                     <Text>Sort by: </Text>
                 </View>
-                <Form>
+                <View>
                     <Picker
                         mode="dropdown"
                         iosHeader="Sort by"
                         selectedValue={sortType}
                         onValueChange={onChangeSortBy}
                         iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: 'blue', fontSize: 25 }} />}
-                        style={{ width: 100 }}
+                        style={{ width: 300 }}
                     >
                         <Picker.Item label="Quantity - Highest to lower" value={0} />
                         <Picker.Item label="Quantity - Lower to highest" value={1} />
                     </Picker>
+                </View>
+            </View>
             <View style={{ flexDirection: 'row' }}>
                 <Text style={{ flex: 1, textAlign: 'right' }}>0</Text>
                 <Slider
