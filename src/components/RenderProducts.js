@@ -44,6 +44,9 @@ const RenderProducts = ({ id, navigation }) => {
     });
     const [currentCategoryProducts, setCurrentCategoryProducts] = useState([]);
     useEffect(() => {
+        setSliderValue(maxPrice);
+    }, [maxPrice]);
+    useEffect(() => {
         setCurrentCategoryProducts(getFilterProducts);
     }, [searchText, setCurrentCategoryProducts]);
     useEffect(() => {
