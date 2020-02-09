@@ -74,6 +74,7 @@ const RenderProducts = ({ id, navigation }) => {
         }
         setCurrentCategoryProducts(currentData);
     };
+    const onSlidingComplete = (value) => setSliderValue(value);
     return (
         <View>
             <View>
