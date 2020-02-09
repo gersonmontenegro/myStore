@@ -6,14 +6,8 @@ import {
     Item,
     Icon,
     Input,
-    ListItem,
-    Left,
     List,
-    Thumbnail,
-    Body,
     Text,
-    Right,
-    Button,
     Form,
     Picker,
 } from 'native-base';
@@ -79,7 +73,7 @@ const RenderProducts = ({ id, navigation }) => {
                     </Picker>
                 </Form>
                 <Slider
-                    style={{width: 200, height: 40}}
+                    style={{ width: 200, height: 40 }}
                     minimumValue={0}
                     maximumValue={1}
                     minimumTrackTintColor="#FFFFFF"
