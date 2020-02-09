@@ -162,7 +162,7 @@ After a while, I've implemented 3 kind of search.
 <img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/search_by_price.gif" width="300px">
 
 
-3. Search by price aviability
+3. Search by aviability
 <img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/search_by_aviability.gif" width="300px">
 
 > Written with [StackEdit](https://stackedit.io/).
