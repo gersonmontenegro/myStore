@@ -103,14 +103,21 @@ const RenderProducts = ({ id, navigation }) => {
                         <Picker.Item label="Quantity - Highest to lower" value={0} />
                         <Picker.Item label="Quantity - Lower to highest" value={1} />
                     </Picker>
-                </Form>
+            <View style={{ flexDirection: 'row' }}>
+                <Text style={{ flex: 1, textAlign: 'right' }}>0</Text>
                 <Slider
-                    style={{ width: 200, height: 40 }}
+                    style={{ flex: 3 }}
                     minimumValue={0}
-                    maximumValue={1}
-                    minimumTrackTintColor="#FFFFFF"
+                    maximumValue={maxPrice}
+                    minimumTrackTintColor="#0000FF"
                     maximumTrackTintColor="#000000"
+                    value={sliderValue}
+                    step={1000}
+                    onSlidingComplete={onSlidingComplete}
                 />
+                <Text style={{ flex: 1 }}>{Format.currencyFormat(maxPrice)}</Text>
+            </View>
+            <View style={{ flex: 1 }}>
             <View style={{ flexDirection: 'row', flex: 1 }}>
                 <View style={{ flex: 1 }}>
                     <Button
