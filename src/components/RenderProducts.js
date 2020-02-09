@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -6,14 +6,8 @@ import {
     Item,
     Icon,
     Input,
-    ListItem,
-    Left,
     List,
-    Thumbnail,
-    Body,
     Text,
-    Right,
-    Button,
     Form,
     Picker,
 } from 'native-base';
@@ -21,6 +15,7 @@ import { setCurrentProductId } from 'actions';
 import { getProductsSelector } from 'selectors';
 import Format from 'helpers/format';
 import Slider from '@react-native-community/slider';
+import Objects from 'constants/objects';
 import RenderProductItem from './RenderProductItem';
 
 const propTypes = {
@@ -38,12 +33,27 @@ const RenderProducts = ({ id, navigation }) => {
     const products = useSelector(getProductsSelector);
     const [searchText, setSearchText] = useState('');
     const [sortType, setSortType] = useState(0);
-    const currentCategoryProducts = products.filter((item) => {
+    const getFilterProducts = products.filter((item) => {
         if (setSearchText) {
             return item.sublevel_id === id && item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
         }
         return item.sublevel_id === id;
     });
+    const [currentCategoryProducts, setCurrentCategoryProducts] = useState([]);
+    useEffect(() => {
+        setCurrentCategoryProducts(getFilterProducts);
+    }, [searchText, setCurrentCategoryProducts]);
+    useEffect(() => {
+        const currentData = [...getFilterProducts];
+        const { firstCondition, secondCondition } = Objects.conditionalSortOptions[sortType];
+        currentData.sort((a, b) => {
+            if (a.quantity > b.quantity) {
+                return firstCondition;
+            }
+            return secondCondition;
+        });
+        setCurrentCategoryProducts(currentData);
+    }, [sortType, setCurrentCategoryProducts]);
     const onChangeText = (txt) => setSearchText(txt);
     const onChangeSortBy = (value) => {
         setSortType(value);
@@ -74,12 +84,12 @@ const RenderProducts = ({ id, navigation }) => {
                         iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: 'blue', fontSize: 25 }} />}
                         style={{ width: 100 }}
                     >
-                        <Picker.Item label="Quantity" value={0} />
-                        <Picker.Item label="Aviability" value={1} />
+                        <Picker.Item label="Quantity - Highest to lower" value={0} />
+                        <Picker.Item label="Quantity - Lower to highest" value={1} />
                     </Picker>
                 </Form>
                 <Slider
-                    style={{width: 200, height: 40}}
+                    style={{ width: 200, height: 40 }}
                     minimumValue={0}
                     maximumValue={1}
                     minimumTrackTintColor="#FFFFFF"
@@ -88,7 +98,7 @@ const RenderProducts = ({ id, navigation }) => {
             </View>
             <List>
                 {
-                    currentCategoryProducts.map((item) => <RenderProductItem key={item.id} item={item} navigation={navigation} />)
+                    currentCategoryProducts && currentCategoryProducts.map((item) => <RenderProductItem key={item.id} item={item} navigation={navigation} />)
                 }
             </List>
         </View>
