@@ -74,6 +74,10 @@ const RenderProducts = ({ id, navigation }) => {
         }
         setCurrentCategoryProducts(currentData);
     };
+    useEffect(() => {
+        const filteredtData = [...getFilterProducts].filter((item) => item.price <= sliderValue);
+        setCurrentCategoryProducts(filteredtData);
+    }, [sliderValue]);
     const onSlidingComplete = (value) => setSliderValue(value);
     return (
         <View>
