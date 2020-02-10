@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Image } from 'react-native';
 import {
@@ -17,11 +17,10 @@ import {
     View,
     Footer,
     FooterTab,
-    Header,
     Title,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import { modifyCart, setCurrentProductId, setFavorite } from 'actions';
+import { modifyCart, setFavorite } from 'actions';
 import { getCurrentProductLikes, getCurrentFavorite } from 'selectors';
 import Format from 'helpers/format';
 import Utils from 'helpers/utils';
@@ -30,8 +29,6 @@ import HeaderDetail from 'components/HeaderDetail';
 const cartIconImage = require('assets/icons/cart_128.png');
 const plusIconImage = require('assets/icons/plus.png');
 const minusIconImage = require('assets/icons/minus.png');
-const checkIconImage = require('assets/icons/check.png');
-const uncheckIconImage = require('assets/icons/uncheck.png');
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -127,7 +124,7 @@ const Detail = (props) => {
                 <Card>
                     <CardItem>
                         <Left>
-                            <Thumbnail source={inCart()} />
+                            <Thumbnail source={cartIconImage} />
                             <Body>
                                 <Text>{item.name}</Text>
                                 <Text note>{Format.currencyFormat(item.price)}</Text>
