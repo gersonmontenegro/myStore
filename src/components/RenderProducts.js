@@ -17,6 +17,7 @@ import { getProductsSelector, getMaxPrice } from 'selectors';
 import Format from 'helpers/format';
 import Slider from '@react-native-community/slider';
 import Objects from 'constants/objects';
+import { ListDataStyles, generalStyles } from 'styles';
 import RenderProductItem from './RenderProductItem';
 
 const propTypes = {
@@ -83,8 +84,8 @@ const RenderProducts = ({ id, navigation }) => {
     useEffect(() => {
         const currentData = [...getFilterProducts];
         const { firstCondition, secondCondition } = Objects.conditionalSortOptions[sortType];
-        currentData.sort((a, b) => {
-            if (a.quantity > b.quantity) {
+        currentData.sort((firstProduct, secondProduct) => {
+            if (firstProduct.quantity > secondProduct.quantity) {
                 return firstCondition;
             }
             return secondCondition;
@@ -104,8 +105,8 @@ const RenderProducts = ({ id, navigation }) => {
                     />
                 </Item>
             </View>
-            <View style={{ flexDirection: 'row' }}>
-                <View style={{ justifyContent: 'center' }}>
+            <View style={ListDataStyles.renderProducts.rowContainer}>
+                <View style={ListDataStyles.renderProducts.centerContainer}>
                     <Text>Sort by: </Text>
                 </View>
                 <View>
@@ -115,17 +116,17 @@ const RenderProducts = ({ id, navigation }) => {
                         selectedValue={sortType}
                         onValueChange={onChangeSortBy}
                         iosIcon={<Icon name="arrow-dropdown-circle" style={{ color: 'blue', fontSize: 25 }} />}
-                        style={{ width: 300 }}
+                        style={ListDataStyles.renderProducts.pickerWidth}
                     >
                         <Picker.Item label="Quantity - Highest to lower" value={0} />
                         <Picker.Item label="Quantity - Lower to highest" value={1} />
                     </Picker>
                 </View>
             </View>
-            <View style={{ flexDirection: 'row' }}>
-                <Text style={{ flex: 1, textAlign: 'right' }}>0</Text>
+            <View style={ListDataStyles.renderProducts.rowContainer}>
+                <Text style={ListDataStyles.renderProducts.sliderParts.left}>0</Text>
                 <Slider
-                    style={{ flex: 3 }}
+                    style={ListDataStyles.renderProducts.sliderParts.body}
                     minimumValue={0}
                     maximumValue={maxPrice}
                     minimumTrackTintColor="#0000FF"
@@ -134,37 +135,37 @@ const RenderProducts = ({ id, navigation }) => {
                     step={1000}
                     onSlidingComplete={onSlidingComplete}
                 />
-                <Text style={{ flex: 1 }}>{Format.currencyFormat(maxPrice)}</Text>
+                <Text style={ListDataStyles.renderProducts.sliderParts.right}>{Format.currencyFormat(maxPrice)}</Text>
             </View>
-            <View style={{ flex: 1 }}>
-                <Text style={{ flex: 1, textAlign: 'center' }}>{Format.currencyFormat(sliderValue)}</Text>
+            <View style={generalStyles.simpleContainer}>
+                <Text style={ListDataStyles.renderProducts.sliderParts.sliderValue}>{Format.currencyFormat(sliderValue)}</Text>
             </View>
-            <View style={{ flexDirection: 'row', flex: 1 }}>
-                <View style={{ flex: 1 }}>
+            <View style={generalStyles.simpleRowContainer}>
+                <View style={generalStyles.simpleContainer}>
                     <Button
                         transparent
                         onPress={onPressRadio(0)}
                     >
-                        <View style={{ flexDirection: 'row', flex: 1 }}>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <View style={generalStyles.simpleRowContainer}>
+                            <View style={generalStyles.simpleJustifyCenterContainer}>
                                 <Text>Show all</Text>
                             </View>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                            <View style={generalStyles.simpleJustifyCenterContainer}>
                                 <Radio onPress={onPressRadio(0)} selected={showAll} />
                             </View>
                         </View>
                     </Button>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={generalStyles.simpleContainer}>
                     <Button
                         transparent
                         onPress={onPressRadio(1)}
                     >
-                        <View style={{ flexDirection: 'row', flex: 1 }}>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                        <View style={generalStyles.simpleRowContainer}>
+                            <View style={generalStyles.simpleJustifyCenterContainer}>
                                 <Text>Only available</Text>
                             </View>
-                            <View style={{ flex: 1, justifyContent: 'center' }}>
+                            <View style={generalStyles.simpleJustifyCenterContainer}>
                                 <Radio onPress={onPressRadio(1)} selected={showAvailable} />
                             </View>
                         </View>
