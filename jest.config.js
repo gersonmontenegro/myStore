@@ -15,6 +15,8 @@ module.exports = {
     ],
     setupFilesAfterEnv: [
         '<rootDir>/__mocks__/react-navigation.js',
+        '<rootDir>/__mocks__/react-redux.js',
+        '<rootDir>/__mocks__/selectors.js',
     ],
     collectCoverageFrom: ['**/*.{js,jsx}', '!**/node_modules/**', '!**/vendor/**'],
     coverageThreshold: {
