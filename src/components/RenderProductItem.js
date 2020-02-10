@@ -23,6 +23,7 @@ const propTypes = {
     item: PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.string,
+        thumbnail: PropTypes.string,
         price: PropTypes.number,
         quantity: PropTypes.number,
     }).isRequired,
@@ -33,7 +34,7 @@ const RenderProductItem = ({ item, navigation }) => {
     return (
         <ListItem thumbnail key={item.id.toString()}>
             <Left>
-                <Thumbnail source={{ uri: 'https://placebeard.it/100x100' }} />
+                <Thumbnail source={{ uri: item.thumbnail }} />
             </Left>
             <Body>
                 <Text>{item.name}</Text>
