@@ -5,14 +5,10 @@ import { useSelector } from 'react-redux';
 import {
     View,
     List,
-    Text,
-    Radio,
-    Button,
 } from 'native-base';
 import { getProductsSelector, getMaxPrice } from 'selectors';
 import Format from 'helpers/format';
 import Objects from 'constants/objects';
-import { ListDataStyles, generalStyles } from 'styles';
 import SortByQuantity from 'components/SortByQuantity';
 import RenderProductItem from 'components/RenderProductItem';
 import SearchByName from 'components/SearchByName';
@@ -39,7 +35,7 @@ const RenderProducts = ({ id, navigation }) => {
     const [showAvailable, setShowAvailable] = useState(false);
     const [sliderValue, setSliderValue] = useState(0);
     const onSlidingComplete = (value) => setSliderValue(value);
-    const getFilterProducts = products.filter((item) => {
+    const getFilterProductsByName = products.filter((item) => {
         if (setSearchText) {
             return item.sublevel_id === id && item.name.toLowerCase().indexOf(searchText.toLowerCase()) !== -1;
         }
@@ -60,7 +56,7 @@ const RenderProducts = ({ id, navigation }) => {
     useEffect(() => {
         let currentData = [...currentCategoryProducts];
         if (showAll === true && showAvailable === false) {
-            currentData = [...getFilterProducts];
+            currentData = [...getFilterProductsByName];
             StoreToastModule.showToast('Showing all products');
         } else if (showAll === false && showAvailable === true) {
             currentData = currentData.filter((item) => item.available);
@@ -69,7 +65,7 @@ const RenderProducts = ({ id, navigation }) => {
         setCurrentCategoryProducts(currentData);
     }, [showAll, showAvailable]);
     useEffect(() => {
-        const filteredtData = [...getFilterProducts].filter((item) => item.price <= sliderValue);
+        const filteredtData = [...getFilterProductsByName].filter((item) => item.price <= sliderValue);
         setCurrentCategoryProducts(filteredtData);
         StoreToastModule.showToast(`Showing products under ${Format.currencyFormat(sliderValue)}`);
     }, [sliderValue]);
@@ -77,11 +73,11 @@ const RenderProducts = ({ id, navigation }) => {
         setSliderValue(maxPrice);
     }, [maxPrice]);
     useEffect(() => {
-        setCurrentCategoryProducts(getFilterProducts);
+        setCurrentCategoryProducts(getFilterProductsByName);
         StoreToastModule.showToast(`Showing products with the name '${searchText}'`);
     }, [searchText, setCurrentCategoryProducts]);
     useEffect(() => {
-        const currentData = [...getFilterProducts];
+        const currentData = [...getFilterProductsByName];
         const { firstCondition, secondCondition } = Objects.conditionalSortOptions[sortType];
         currentData.sort((firstProduct, secondProduct) => {
             if (firstProduct.quantity > secondProduct.quantity) {
