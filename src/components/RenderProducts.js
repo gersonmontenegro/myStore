@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { NativeModules } from 'react-native';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import {
@@ -29,6 +30,7 @@ const propTypes = {
 };
 
 const RenderProducts = ({ id, navigation }) => {
+    const { StoreToastModule } = NativeModules;
     const products = useSelector(getProductsSelector);
     const maxPrice = useSelector(getMaxPrice);
     const [searchText, setSearchText] = useState('');
@@ -45,9 +47,7 @@ const RenderProducts = ({ id, navigation }) => {
     });
     const [currentCategoryProducts, setCurrentCategoryProducts] = useState([]);
     const onChangeText = (txt) => setSearchText(txt);
-    const onChangeSortBy = (value) => {
-        setSortType(value);
-    };
+    const onChangeSortBy = (value) => setSortType(value);
     const onPressRadio = (radio) => () => {
         if (radio) {
             setShowAll(false);
@@ -61,20 +61,24 @@ const RenderProducts = ({ id, navigation }) => {
         let currentData = [...currentCategoryProducts];
         if (showAll === true && showAvailable === false) {
             currentData = [...getFilterProducts];
+            StoreToastModule.showToast('Showing all products');
         } else if (showAll === false && showAvailable === true) {
             currentData = currentData.filter((item) => item.available);
+            StoreToastModule.showToast('Showing just available products');
         }
         setCurrentCategoryProducts(currentData);
     }, [showAll, showAvailable]);
     useEffect(() => {
         const filteredtData = [...getFilterProducts].filter((item) => item.price <= sliderValue);
         setCurrentCategoryProducts(filteredtData);
+        StoreToastModule.showToast(`Showing products under ${Format.currencyFormat(sliderValue)}`);
     }, [sliderValue]);
     useEffect(() => {
         setSliderValue(maxPrice);
     }, [maxPrice]);
     useEffect(() => {
         setCurrentCategoryProducts(getFilterProducts);
+        StoreToastModule.showToast(`Showing products with the name '${searchText}'`);
     }, [searchText, setCurrentCategoryProducts]);
     useEffect(() => {
         const currentData = [...getFilterProducts];
