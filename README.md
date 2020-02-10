@@ -165,5 +165,41 @@ After a while, I've implemented 3 kind of search.
 3. Search by aviability
 <img src="https://github.com/gersonmontenegro/myStore/blob/master/src/assets/gif/search_by_aviability.gif" width="300px">
 
+**Java Module**
+
+One of the latest feature for this project is a Native Module, or Bridge, between our React Native / Javascript app, and native Java.
+
+I wouldn't complicated myself on this one, I'll just make the "Hello World" of the Native Modules examples: a Toast message manager.
+
+I'll show this message when the user has used a search, such as by name, or showing just available products.
+
+There are two ways to do a Bridge for Android:
+
+a. Creating a complete new projects where we just need to add the necessary files, and then imported it from our RN project.
+b. Add the bridge inside our existing RN project.
+
+Guess what!, I'll choose the last one because I don't have time to deal with some details at compiling time in Android :)
+
+So that, I just need to add a couple of files inside our main Java files:
+
+ - [StoreToastModule](https://github.com/gersonmontenegro/myStore/blob/master/android/app/src/main/java/com/initstack/StoreToastModule.java)
+ - [StoreToastPackage](https://github.com/gersonmontenegro/myStore/blob/master/android/app/src/main/java/com/initstack/StoreToastPackage.java)
+
+And that's all. Now we are able to import our new StoreToastModule through NativeModules object using *react-native* library.
+
+So, in order to use this new feature, we just need to add this line on the import's zone:
+
+    import { NativeModules } from  'react-native';
+
+And then, we have to extract our new module to use it:
+
+    const { StoreToastModule } = NativeModules;
+    StoreToastModule.showToast('Showing all products');
+
+So, we have finished our project, at least the functionality.
+
+Now It's time to tidy up some parts, and then, make some unit tests.
+
 > Written with [StackEdit](https://stackedit.io/).
+
 
