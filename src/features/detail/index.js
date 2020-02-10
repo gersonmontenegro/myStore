@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Image } from 'react-native';
 import {
@@ -17,20 +17,18 @@ import {
     View,
     Footer,
     FooterTab,
-    Header,
     Title,
 } from 'native-base';
 import PropTypes from 'prop-types';
-import { modifyCart, setCurrentProductId, setFavorite } from 'actions';
+import { modifyCart, setFavorite } from 'actions';
 import { getCurrentProductLikes, getCurrentFavorite } from 'selectors';
 import Format from 'helpers/format';
 import Utils from 'helpers/utils';
+import HeaderDetail from 'components/HeaderDetail';
 
 const cartIconImage = require('assets/icons/cart_128.png');
 const plusIconImage = require('assets/icons/plus.png');
 const minusIconImage = require('assets/icons/minus.png');
-const checkIconImage = require('assets/icons/check.png');
-const uncheckIconImage = require('assets/icons/uncheck.png');
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -117,26 +115,16 @@ const Detail = (props) => {
         }
         return 'heart-empty';
     };
-    const inCart = () => {
-
-    };
+    const onPressFavorite = () => dispatch(setFavorite(item.id));
+    const onPressGoCart = () => navigation.navigate('Cart');
     return (
         <Container>
-            <Header>
-                <Left>
-                    <Button
-                        transparent
-                        onPress={() => navigation.pop()}
-                    >
-                        <Icon name="arrow-back" />
-                    </Button>
-                </Left>
-            </Header>
+            <HeaderDetail navigation={navigation} />
             <Content>
                 <Card>
                     <CardItem>
                         <Left>
-                            <Thumbnail source={inCart()} />
+                            <Thumbnail source={cartIconImage} />
                             <Body>
                                 <Text>{item.name}</Text>
                                 <Text note>{Format.currencyFormat(item.price)}</Text>
@@ -153,9 +141,7 @@ const Detail = (props) => {
                         <Left>
                             <Button
                                 transparent
-                                onPress={() => {
-                                    dispatch(setFavorite(item.id));
-                                }}
+                                onPress={onPressFavorite}
                             >
                                 <Icon active name={renderHeart()} />
                                 <Text>{`${currentLikes} likes`}</Text>
@@ -192,7 +178,7 @@ const Detail = (props) => {
                     <Button
                         full
                         primary
-                        onPress={() => navigation.navigate('Cart')}
+                        onPress={onPressGoCart}
                     >
                         <Text style={{ color: 'white' }}>Checkout</Text>
                     </Button>
