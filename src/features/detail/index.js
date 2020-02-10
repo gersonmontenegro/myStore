@@ -117,9 +117,8 @@ const Detail = (props) => {
         }
         return 'heart-empty';
     };
-    const inCart = () => {
-
-    };
+    const onPressFavorite = () => dispatch(setFavorite(item.id));
+    const onPressGoCart = () => navigation.navigate('Cart');
     return (
         <Container>
             <Header>
@@ -153,9 +152,7 @@ const Detail = (props) => {
                         <Left>
                             <Button
                                 transparent
-                                onPress={() => {
-                                    dispatch(setFavorite(item.id));
-                                }}
+                                onPress={onPressFavorite}
                             >
                                 <Icon active name={renderHeart()} />
                                 <Text>{`${currentLikes} likes`}</Text>
@@ -192,7 +189,7 @@ const Detail = (props) => {
                     <Button
                         full
                         primary
-                        onPress={() => navigation.navigate('Cart')}
+                        onPress={onPressGoCart}
                     >
                         <Text style={{ color: 'white' }}>Checkout</Text>
                     </Button>
