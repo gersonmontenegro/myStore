@@ -25,6 +25,7 @@ import { modifyCart, setCurrentProductId, setFavorite } from 'actions';
 import { getCurrentProductLikes, getCurrentFavorite } from 'selectors';
 import Format from 'helpers/format';
 import Utils from 'helpers/utils';
+import HeaderDetail from 'components/HeaderDetail';
 
 const cartIconImage = require('assets/icons/cart_128.png');
 const plusIconImage = require('assets/icons/plus.png');
@@ -121,16 +122,7 @@ const Detail = (props) => {
     const onPressGoCart = () => navigation.navigate('Cart');
     return (
         <Container>
-            <Header>
-                <Left>
-                    <Button
-                        transparent
-                        onPress={() => navigation.pop()}
-                    >
-                        <Icon name="arrow-back" />
-                    </Button>
-                </Left>
-            </Header>
+            <HeaderDetail navigation={navigation} />
             <Content>
                 <Card>
                     <CardItem>
