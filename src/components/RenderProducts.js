@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { NativeModules } from 'react-native';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -12,8 +12,8 @@ import Objects from 'constants/objects';
 import SortByQuantity from 'components/SortByQuantity';
 import RenderProductItem from 'components/RenderProductItem';
 import SearchByName from 'components/SearchByName';
-import FilterByPriceSlider from './FilterByPriceSlider';
-import FilterByAviability from './FilterByAviability';
+import FilterByPriceSlider from 'components/FilterByPriceSlider';
+import FilterByAviability from 'components/FilterByAviability';
 
 const propTypes = {
     navigation: PropTypes.shape({
@@ -87,17 +87,23 @@ const RenderProducts = ({ id, navigation }) => {
         });
         setCurrentCategoryProducts(currentData);
     }, [sortType, setCurrentCategoryProducts]);
+    const renderListProducts = () => (
+        <List>
+            {
+                currentCategoryProducts && currentCategoryProducts.map((item) => <RenderProductItem key={item.id} item={item} navigation={navigation} />)
+            }
+        </List>
+    );
+    const renderListProductsMemo = useMemo(renderListProducts);
     return (
         <View>
             <SearchByName onChangeText={onChangeText} searchText={searchText} />
             <SortByQuantity sortType={sortType} onChangeSortBy={onChangeSortBy} />
             <FilterByPriceSlider maxPrice={maxPrice} sliderValue={sliderValue} onSlidingComplete={onSlidingComplete} />
             <FilterByAviability onPressRadio={onPressRadio} showAll={showAll} showAvailable={showAvailable} />
-            <List>
-                {
-                    currentCategoryProducts && currentCategoryProducts.map((item) => <RenderProductItem key={item.id} item={item} navigation={navigation} />)
-                }
-            </List>
+            {
+                renderListProductsMemo
+            }
         </View>
     );
 };
