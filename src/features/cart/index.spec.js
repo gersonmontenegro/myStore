@@ -19,4 +19,12 @@ describe('Test cart interface', () => {
     test('should render properly', () => {
         expect(wrapper).toMatchSnapshot();
     });
+
+    test('should show subtotal', () => {
+        const { queryByText } = wrapper;
+        const totalAmount = useSelector(getTotalFromCart);
+        expect(queryByText(`Subtotal: ${Format.currencyFormat(totalAmount)}`));
+    });
+
+    test('should render # elements', () => {
 });
