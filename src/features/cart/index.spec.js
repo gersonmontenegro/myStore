@@ -12,7 +12,9 @@ const props = {
 describe('Test cart interface', () => {
     afterEach(() => cleanup);
     let wrapper;
-    beforeEach(() => render(<Cart {...props} />));
+    beforeEach(() => {
+        wrapper = render(<Cart {...props} />);
+    });
 
     test('should render properly', () => {
         expect(wrapper).toMatchSnapshot();
